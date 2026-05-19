@@ -91,10 +91,39 @@ All emails MUST use HTML formatting. Never send plain text or markdown in emails
 - Use `<ul><li>` for bullet lists, `<ol><li>` for numbered lists
 - Sign off with the user's name from `context/me.json`
 
+**Every email MUST end with the following disclaimer** (after the sign-off, as a footer):
+
+```html
+<hr style="border:none;border-top:1px solid #ccc;margin:20px 0 10px 0;"/>
+<p style="font-size:11px;color:#888;">
+This reply was drafted with the help of Copilot. The information above may be
+incomplete or inaccurate. If this doesn't answer your question, please reply
+directly to <strong>[user's name]</strong> at
+<a href="mailto:[user's email]">[user's email]</a> and they will follow up personally.
+</p>
+```
+
+Replace `[user's name]` and `[user's email]` with values from `context/me.json`.
+
 ## Teams Formatting
 
 - **Channel posts**: Use `contentType: "html"` with HTML formatting
 - **Chat messages (1:1 or group)**: Use `contentType: "text"` with plain text — keep it natural
+
+**Every Teams message MUST end with the following disclaimer** (on a new line, after the main content):
+
+For HTML messages (channel posts):
+```html
+<hr/><p style="font-size:11px;color:#888;">⚡ Drafted by Copilot — may be inaccurate. If this doesn't help, please @ mention <strong>[user's name]</strong> directly and they'll follow up.</p>
+```
+
+For plain text messages (1:1 / group chat):
+```
+---
+⚡ Drafted by Copilot — may be inaccurate. If this doesn't help, please @ mention [user's name] directly and they'll follow up.
+```
+
+Replace `[user's name]` with the value from `context/me.json`.
 
 ## Priority Rubric
 
