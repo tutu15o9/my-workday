@@ -1,0 +1,10 @@
+{
+  "name": "my-workday",
+  "description": "Daily work assistant — helps manage emails, Teams, calendar, ADO, and Planner with per-person context awareness.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Rahul Tuteja",
+    "email": "rahultuteja@microsoft.com"
+  },
+  "keywords": ["workday", "email", "teams", "calendar", "productivity", "communications"]
+}

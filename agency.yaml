@@ -1,0 +1,23 @@
+# Agency configuration for my-workday workspace
+# Run `agency cp` from this folder to start a daily work assistant session
+
+mcps:
+  builtins:
+    # Communication
+    teams: true        # Teams messages, channels, chat
+    mail: true         # Outlook email — read, reply, draft, search
+    calendar: true     # Calendar events and scheduling
+
+    # Work tracking
+    ado: true          # Azure DevOps work items, PRs, repos
+    planner: true      # Planner tasks and boards
+
+    # Broad search & context
+    m365-copilot: true # M365 content search across emails, chats, docs
+    m365-user: true    # Org chart, manager, direct reports
+    graph: true        # Microsoft Graph for enterprise data
+    workiq: true       # WorkIQ workplace activity insights
+
+    # Documents
+    onedrive: true     # OneDrive files and documents
+    sharepoint: true   # SharePoint sites and documents
