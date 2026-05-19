@@ -11,13 +11,16 @@ mcps:
     # Work tracking
     # ADO supports multiple orgs via aliases — add one entry per org
     ado:                               # Primary ADO org
+      type: ado
       organization: "[your-primary-ado-org]"  # e.g. "msazure"
-      toolsets: "all"
+      toolsets:
+        - "all"
 
     ado_secondary:                     # Second ADO org (alias → ado MCP)
       type: ado
       organization: "[your-second-ado-org]"   # e.g. "microsoft"
-      toolsets: "all"
+      toolsets:
+        - "all"
 
     planner: true      # Planner tasks and boards
 
@@ -33,6 +36,7 @@ mcps:
 
     # Engineering context — one entry per org/project
     bluebird:                              # Primary Bluebird instance
+      type: bluebird
       organization: "[your-primary-ado-org]"
       project: "[your-primary-project]"    # e.g. "One"
       full: true
@@ -41,4 +45,4 @@ mcps:
       type: bluebird
       organization: "[your-second-ado-org]"
       project: "[your-second-project]"
-      full: true# Enable full mode
+      full: true
