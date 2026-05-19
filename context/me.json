@@ -1,0 +1,36 @@
+{
+  "identity": {
+    "name": "[Your Full Name]",
+    "email": "[your.email@microsoft.com]",
+    "alias": "[your alias]",
+    "role": "[e.g. Senior Software Engineer / Engineering Manager]",
+    "org": "[Team or org name]",
+    "manager": {
+      "name": "[Manager's name]",
+      "email": "[manager's email]"
+    }
+  },
+  "working_hours": {
+    "timezone": "[e.g. IST / PST / EST]",
+    "hours": "[e.g. 9:00 AM – 6:00 PM]",
+    "focus_days": "[e.g. Fridays — no meetings preferred]",
+    "deep_work_blocks": "[e.g. 10am–12pm, do not schedule meetings]"
+  },
+  "communication_preferences": {
+    "escalate_immediately": ["P0 incidents", "messages from my manager", "blocked team members"],
+    "batch_and_surface": ["FYI emails", "automated notifications"],
+    "ignore": ["mailing lists", "HR announcements unless action required"]
+  },
+  "ado": {
+    "organization": "[your ADO org URL, e.g. https://dev.azure.com/myorg]",
+    "primary_project": "[ADO project name]",
+    "repos": []
+  },
+  "projects": [
+    {
+      "name": "[Project 1]",
+      "description": "[brief description]"
+    }
+  ],
+  "notes": "[Any other context — recurring meetings, on-call schedule, current sprint goals, etc.]"
+}

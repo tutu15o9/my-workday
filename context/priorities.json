@@ -1,0 +1,32 @@
+{
+  "last_updated": null,
+  "focus_areas": [
+    {
+      "rank": 1,
+      "description": "[e.g. Ship v2.0 of the auth service by end of sprint]"
+    },
+    {
+      "rank": 2,
+      "description": "[e.g. Hire two engineers for the platform team]"
+    },
+    {
+      "rank": 3,
+      "description": "[e.g. Reduce P1 incident response time]"
+    }
+  ],
+  "this_week": [
+    {
+      "task": "[Task or goal for this week]",
+      "done": false
+    }
+  ],
+  "blocked": [
+    {
+      "description": "[What you're blocked on]",
+      "waiting_on": "[person or team who can unblock]"
+    }
+  ],
+  "deprioritized": [
+    "[Things that can wait — helps the assistant not surface these]"
+  ]
+}
