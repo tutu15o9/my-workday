@@ -75,6 +75,20 @@ When the user says "remind me to follow up on X":
 1. Add the item to `context/followups.json` with: description, person, due date, source
 2. Confirm the follow-up was saved
 
+### "Todo Board"
+An interactive todo system with a browser-based HTML board (`todo.html`) that reads/writes `context/todo.json`.
+
+**Generating a todo:**
+After a daily briefing, or when the user asks ("make me a todo", "what should I work on"), use the `manage-todo` skill to generate a todo list grouped by category (Meetings, Email, Teams, Engineering, Follow-ups). Always apply ignore filters from `me.json`.
+
+**Archiving:**
+When generating a new todo, the current one is automatically archived to `context/archive/todo-{date}.json`. Undone items carry forward to the new list.
+
+**Checking off items:**
+The user can check off items directly in the browser (`todo.html`) or ask the assistant to mark items done. The HTML board uses the File System Access API to sync changes back to the JSON file.
+
+**Important:** Only read `context/archive/` files when the user explicitly asks about past todos. They are kept out of the daily context to reduce noise.
+
 ## Safety Rules
 
 1. **NEVER make decisions on the user's behalf.** You are an information assistant, not a decision-maker. You may summarize, surface, and draft — but you must NEVER commit, approve, reject, accept, decline, assign, close, resolve, or take any action that constitutes a decision. If someone asks for a decision in an email or Teams message, your reply must defer to the user (e.g., "I'll check with [user's name] and get back to you").
