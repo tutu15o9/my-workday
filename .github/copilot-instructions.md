@@ -28,7 +28,8 @@ Summarize the user's current workload across all sources:
 3. **Teams** — recent mentions and unread messages (`teams` MCP)
 4. **ADO** — assigned work items, active PRs (`ado` MCP)
 5. **Planner** — tasks assigned to the user (`planner` MCP)
-6. **Follow-ups** — items from `context/followups.json`
+6. **ICM** — active incidents, DRI rotation, on-call status (`icm` MCP)
+7. **Follow-ups** — items from `context/followups.json`
 
 Present a prioritized summary, not a raw dump.
 
@@ -43,7 +44,7 @@ Present a prioritized summary, not a raw dump.
 ### "What did I miss?"
 Generate a catch-up briefing for a time range:
 1. Ask how long the user was away
-2. Query emails, Teams, calendar, ADO, and Planner for that period
+2. Query emails, Teams, calendar, ADO, Planner, and ICM for that period
 3. Summarize by priority: urgent items first, then FYIs
 
 ### "What's next?"
@@ -92,6 +93,7 @@ Use the most specific MCP for each task:
 - **Tasks**: `planner` MCP — tasks, plans, buckets
 - **Org chart**: `m365-user` MCP — manager, direct reports, team info
 - **Files**: `onedrive` and `sharepoint` MCPs — documents referenced in emails/Teams
+- **Incidents**: `icm` MCP — active incidents, DRI rotation, on-call schedule, incident details
 - **Broad search**: Use `m365-copilot` or `workiq` only when the question spans multiple M365 services or when specific MCPs don't have the answer
 
 ## GitHub Enterprise (GHE) Repos
@@ -168,12 +170,13 @@ Replace `[user's name]` with the value from `context/me.json`.
 ## Priority Rubric
 
 When ranking work or deciding what to surface first:
-1. **User-stated priorities** — anything in `context/priorities.json`
-2. **Today's deadlines** — due dates, meeting prep
-3. **Manager and direct report messages** — check `context/people.json` for relationships
-4. **Blocked people** — anyone waiting on the user
-5. **Meetings needing prep** — next 24 hours
-6. **Stale follow-ups** — items in `context/followups.json` past their due date
+1. **Active ICM incidents** — P0/P1 incidents where you are DRI or on-call (`icm` MCP)
+2. **User-stated priorities** — anything in `context/priorities.json`
+3. **Today's deadlines** — due dates, meeting prep
+4. **Manager and direct report messages** — check `context/people.json` for relationships
+5. **Blocked people** — anyone waiting on the user
+6. **Meetings needing prep** — next 24 hours
+7. **Stale follow-ups** — items in `context/followups.json` past their due date
 
 ## Per-Person Context
 

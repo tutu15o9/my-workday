@@ -1,36 +1,59 @@
 {
   "identity": {
-    "name": "[Your Full Name]",
-    "email": "[your.email@microsoft.com]",
-    "alias": "[your alias]",
-    "role": "[e.g. Senior Software Engineer / Engineering Manager]",
-    "org": "[Team or org name]",
+    "name": "Rahul Tuteja",
+    "email": "rahul.tuteja@microsoft.com",
+    "alias": "rahultuteja",
+    "role": "Software Engineer 2",
+    "org": "AI ERP HYD 1190_r",
+    "department": "AI ERP",
+    "office": "Bengaluru",
     "manager": {
-      "name": "[Manager's name]",
-      "email": "[manager's email]"
+      "name": "Avijeet Dhamija",
+      "email": "avijeetd@microsoft.com"
     }
   },
   "working_hours": {
-    "timezone": "[e.g. IST / PST / EST]",
-    "hours": "[e.g. 9:00 AM – 6:00 PM]",
-    "focus_days": "[e.g. Fridays — no meetings preferred]",
-    "deep_work_blocks": "[e.g. 10am–12pm, do not schedule meetings]"
+    "timezone": "IST",
+    "hours": "10:30 AM – 5:00 PM",
+    "focus_days": "None",
+    "deep_work_blocks": "None"
   },
   "communication_preferences": {
-    "escalate_immediately": ["P0 incidents", "messages from my manager", "blocked team members"],
+    "escalate_immediately": ["P0 incidents", "ICM incidents where I am DRI", "messages from my manager", "blocked team members"],
     "batch_and_surface": ["FYI emails", "automated notifications"],
     "ignore": ["mailing lists", "HR announcements unless action required"]
   },
   "ado": {
-    "organization": "[your ADO org URL, e.g. https://dev.azure.com/myorg]",
-    "primary_project": "[ADO project name]",
-    "repos": []
+    "primary": {
+      "organization": "dynamicscrm",
+      "project": "OneCRM",
+      "url": "https://dev.azure.com/dynamicscrm/OneCRM"
+    },
+    "secondary": {
+      "organization": "msdyneng",
+      "project": "FinOps",
+      "url": "https://msdyneng.visualstudio.com/FinOps"
+    }
   },
   "projects": [
     {
-      "name": "[Project 1]",
-      "description": "[brief description]"
+      "name": "Vendor Relationship Management (VRM)",
+      "description": "New solution onboarding from HSO. Owner for Power App — starting with all comms from SE App to FnO and Power Pages.",
+      "repo": "https://microsoft.ghe.com/bic/crm.solutions.vendorrelationshipmanagement",
+      "role": "Owner"
+    },
+    {
+      "name": "Dual Write SCM Extended",
+      "description": "Dual write solution for Supply Chain Management (SCM) side.",
+      "repo": "https://microsoft.ghe.com/bic/CRM.Solutions.DualWrite.SupplyChainExtended",
+      "role": "Lead Engineer / Dev Owner"
+    },
+    {
+      "name": "FO CDS Portals",
+      "description": "Customer portal solution.",
+      "repo": "https://microsoft.ghe.com/bic/FO.CDS.Portals",
+      "role": "Lead Engineer / Dev Owner"
     }
   ],
-  "notes": "[Any other context — recurring meetings, on-call schedule, current sprint goals, etc.]"
+  "notes": "Repos are on GitHub Enterprise (microsoft.ghe.com), not Azure DevOps."
 }

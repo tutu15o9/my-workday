@@ -1,32 +1,35 @@
 {
-  "last_updated": null,
+  "last_updated": "2026-05-19",
   "focus_areas": [
     {
       "rank": 1,
-      "description": "[e.g. Ship v2.0 of the auth service by end of sprint]"
+      "description": "Fix all Playwright onboarding issues and run Playwright tests on ADO pipeline"
     },
     {
       "rank": 2,
-      "description": "[e.g. Hire two engineers for the platform team]"
+      "description": "VRM Power App — build understanding of all comms from SE App to FnO and Power Pages"
     },
     {
       "rank": 3,
-      "description": "[e.g. Reduce P1 incident response time]"
+      "description": "Handle all Dual Write SCM Extended and Portals engineering decisions and doubts"
+    },
+    {
+      "rank": 4,
+      "description": "Make AI things"
     }
   ],
   "this_week": [
     {
-      "task": "[Task or goal for this week]",
+      "task": "Fix Playwright issues in VRM",
+      "done": false
+    },
+    {
+      "task": "Start building knowledge base for VRM solution",
       "done": false
     }
   ],
-  "blocked": [
-    {
-      "description": "[What you're blocked on]",
-      "waiting_on": "[person or team who can unblock]"
-    }
-  ],
+  "blocked": [],
   "deprioritized": [
-    "[Things that can wait — helps the assistant not surface these]"
+    "Close all upgrade PRs across the three repos (VRM, Dual Write SCM Extended, Portals)"
   ]
 }

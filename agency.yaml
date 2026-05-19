@@ -12,16 +12,17 @@ mcps:
     # ADO supports multiple orgs via aliases — add one entry per org
     ado:                               # Primary ADO org
       type: ado
-      organization: "[your-primary-ado-org]"  # e.g. "msazure"
+      organization: "dynamicscrm"
       toolsets:
         - "all"
 
     ado_secondary:                     # Second ADO org (alias → ado MCP)
       type: ado
-      organization: "[your-second-ado-org]"   # e.g. "microsoft"
+      organization: "msdyneng"
       toolsets:
         - "all"
-
+    icm : true          # ICM cases and work items
+    
     planner: true      # Planner tasks and boards
 
     # Broad search & context
@@ -37,14 +38,14 @@ mcps:
     # Engineering context — one entry per org/project
     bluebird:                              # Primary Bluebird instance
       type: bluebird
-      organization: "[your-primary-ado-org]"
-      project: "[your-primary-project]"    # e.g. "One"
+      organization: "dynamicscrm"
+      project: "OneCRM"
       full: true
 
     bluebird_secondary:                    # Second Bluebird instance (alias → bluebird MCP)
       type: bluebird
-      organization: "[your-second-ado-org]"
-      project: "[your-second-project]"
+      organization: "msdyneng"
+      project: "FinOps"
       full: true
 
   # GitHub Enterprise (microsoft.ghe.com) repo access
