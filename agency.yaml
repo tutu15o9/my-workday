@@ -9,7 +9,10 @@ mcps:
     calendar: true     # Calendar events and scheduling
 
     # Work tracking
-    ado: true          # Azure DevOps work items, PRs, repos
+    ado:                           # Azure DevOps work items, PRs, repos
+      organization: "[your-ado-org]"   # e.g. "msazure" or your ADO org name
+      toolsets: "all"
+
     planner: true      # Planner tasks and boards
 
     # Broad search & context
@@ -22,5 +25,8 @@ mcps:
     onedrive: true     # OneDrive files and documents
     sharepoint: true   # SharePoint sites and documents
 
-    # Other
-    bluebird: true     # Bluebird MCP server
+    # Engineering context
+    bluebird:                      # Engineering Copilot (Bluebird)
+      organization: "[your-ado-org]"   # Same ADO org as above
+      project: "[your-ado-project]"    # e.g. "One"
+      full: true                       # Enable full mode
