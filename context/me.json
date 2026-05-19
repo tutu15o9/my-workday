@@ -21,7 +21,7 @@
   "communication_preferences": {
     "escalate_immediately": ["P0 incidents", "ICM incidents where I am DRI", "messages from my manager", "blocked team members"],
     "batch_and_surface": ["FYI emails", "automated notifications"],
-    "ignore": ["mailing lists", "HR announcements unless action required"]
+    "ignore": ["mailing lists", "HR announcements unless action required", "JIT approval emails unless Rahul is mentioned directly", "SCM Live Site Postmortem meetings", "All ICM incidents unless Rahul is mentioned, assigned, or on DRI"]
   },
   "ado": {
     "primary": {
