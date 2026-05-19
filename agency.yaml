@@ -21,3 +21,6 @@ mcps:
     # Documents
     onedrive: true     # OneDrive files and documents
     sharepoint: true   # SharePoint sites and documents
+
+    # Other
+    bluebird: true     # Bluebird MCP server
