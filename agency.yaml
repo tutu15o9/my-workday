@@ -9,8 +9,14 @@ mcps:
     calendar: true     # Calendar events and scheduling
 
     # Work tracking
-    ado:                           # Azure DevOps work items, PRs, repos
-      organization: "[your-ado-org]"   # e.g. "msazure" or your ADO org name
+    # ADO supports multiple orgs via aliases — add one entry per org
+    ado:                               # Primary ADO org
+      organization: "[your-primary-ado-org]"  # e.g. "msazure"
+      toolsets: "all"
+
+    ado_secondary:                     # Second ADO org (alias → ado MCP)
+      type: ado
+      organization: "[your-second-ado-org]"   # e.g. "microsoft"
       toolsets: "all"
 
     planner: true      # Planner tasks and boards
@@ -25,8 +31,14 @@ mcps:
     onedrive: true     # OneDrive files and documents
     sharepoint: true   # SharePoint sites and documents
 
-    # Engineering context
-    bluebird:                      # Engineering Copilot (Bluebird)
-      organization: "[your-ado-org]"   # Same ADO org as above
-      project: "[your-ado-project]"    # e.g. "One"
-      full: true                       # Enable full mode
+    # Engineering context — one entry per org/project
+    bluebird:                              # Primary Bluebird instance
+      organization: "[your-primary-ado-org]"
+      project: "[your-primary-project]"    # e.g. "One"
+      full: true
+
+    bluebird_secondary:                    # Second Bluebird instance (alias → bluebird MCP)
+      type: bluebird
+      organization: "[your-second-ado-org]"
+      project: "[your-second-project]"
+      full: true# Enable full mode
