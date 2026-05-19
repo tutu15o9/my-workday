@@ -46,3 +46,13 @@ mcps:
       organization: "[your-second-ado-org]"
       project: "[your-second-project]"
       full: true
+
+  # GitHub Enterprise (microsoft.ghe.com) repo access
+  # The built-in github-mcp-server only works with github.com.
+  # For GHE repos, the agent uses `gh` CLI with --hostname microsoft.ghe.com
+  # (already authenticated via `gh auth login -h microsoft.ghe.com`)
+  #
+  # Target repos:
+  #   - bic/crm.solutions.vendorrelationshipmanagement
+  #   - bic/CRM.Solutions.DualWrite.SupplyChainExtended
+  #   - bic/FO.CDS.Portals

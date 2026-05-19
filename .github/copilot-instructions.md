@@ -94,6 +94,35 @@ Use the most specific MCP for each task:
 - **Files**: `onedrive` and `sharepoint` MCPs — documents referenced in emails/Teams
 - **Broad search**: Use `m365-copilot` or `workiq` only when the question spans multiple M365 services or when specific MCPs don't have the answer
 
+## GitHub Enterprise (GHE) Repos
+
+The built-in `github-mcp-server` only works with `github.com`. For repos on `microsoft.ghe.com`, use the `gh` CLI with `--hostname microsoft.ghe.com`.
+
+**Target repos:**
+- `bic/crm.solutions.vendorrelationshipmanagement`
+- `bic/CRM.Solutions.DualWrite.SupplyChainExtended`
+- `bic/FO.CDS.Portals`
+
+**Common operations:**
+```bash
+# Read a file
+gh api repos/{owner}/{repo}/contents/{path} --hostname microsoft.ghe.com -H "Accept: application/vnd.github.raw+json"
+
+# Search code in a repo
+gh api "search/code?q={query}+repo:{owner}/{repo}" --hostname microsoft.ghe.com
+
+# List PRs
+gh pr list -R {owner}/{repo} --hostname microsoft.ghe.com
+
+# List issues
+gh issue list -R {owner}/{repo} --hostname microsoft.ghe.com
+
+# Get repo tree
+gh api repos/{owner}/{repo}/git/trees/{branch}?recursive=1 --hostname microsoft.ghe.com --jq ".tree[].path"
+```
+
+When the user asks about code, PRs, or issues in these repos, use `gh` CLI commands above.
+
 ## Email Formatting
 
 All emails MUST use HTML formatting. Never send plain text or markdown in emails.
