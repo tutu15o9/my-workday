@@ -21,7 +21,22 @@
   "communication_preferences": {
     "escalate_immediately": ["P0 incidents", "ICM incidents where I am DRI", "messages from my manager", "blocked team members"],
     "batch_and_surface": ["FYI emails", "automated notifications"],
-    "ignore": ["mailing lists", "HR announcements unless action required", "JIT approval emails unless Rahul is mentioned directly", "SCM Live Site Postmortem meetings", "All ICM incidents unless Rahul is mentioned, assigned, or on DRI"]
+    "ignore": [
+      "Mailing lists (any channel)",
+      "HR announcements unless action is required (any channel)",
+      "JIT approval notifications unless Rahul is mentioned or addressed directly (any channel — email, Teams, etc.)",
+      "SCM Live Site Postmortem meetings",
+      "All ICM incidents unless Rahul is mentioned, assigned, or on DRI"
+    ],
+    "needs_reply_rules": {
+      "description": "Only flag an item as 'needs reply' if ALL of the following are true:",
+      "criteria": [
+        "Rahul is directly addressed — @mentioned by name, asked a question in a 1:1 chat, or explicitly called out (e.g. 'Rahul, can you...')",
+        "The message asks Rahul to do something or answer a question",
+        "The message is NOT a broadcast, channel-wide ask (e.g. 'Anyone?'), or general FYI"
+      ],
+      "when_unsure": "Do NOT flag as 'needs reply'. Surface as FYI at most."
+    }
   },
   "ado": {
     "primary": {

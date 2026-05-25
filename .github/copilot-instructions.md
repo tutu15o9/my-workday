@@ -100,6 +100,35 @@ The user can check off items directly in the browser (`todo.html`) or ask the as
 
 **Important:** Only read `context/archive/` files when the user explicitly asks about past todos. They are kept out of the daily context to reduce noise.
 
+## Briefing Validation Rules
+
+Before presenting ANY briefing or daily summary to the user, the assistant MUST run these checks on every item. Items that fail a check must be removed or downgraded.
+
+### 1. Time Filter
+- Compare every calendar event and suggested action against the **current time**.
+- **Past events** (end time < now): mark as "✅ Done" or omit entirely. NEVER suggest preparing for or attending a past meeting.
+- **Upcoming events** (start time > now): surface normally.
+
+### 2. Ignore-Rule Cross-Check
+- Read `communication_preferences.ignore` from `context/me.json`.
+- Apply every ignore rule to **all sources** — email, Teams, calendar, ICM, and any other channel. The rules are channel-agnostic.
+- If an item matches an ignore rule, **drop it**. Do not surface it even as FYI.
+
+### 3. "Needs Reply" Test
+- Read `communication_preferences.needs_reply_rules` from `context/me.json`.
+- Only flag an item as **"Needs reply"** if:
+  - Rahul is **directly addressed** — @mentioned, asked by name, or in a 1:1 chat where someone asked him something.
+  - The message **asks Rahul to do something or answer a question**.
+  - The message is **NOT** a broadcast, a channel-wide ask (e.g., "Anyone?"), or a general FYI.
+- **When unsure**: do NOT flag as "needs reply." Surface as FYI at most.
+
+### 4. Sub-Agent Prompt Requirements
+- When launching sub-agents to fetch data, the prompt MUST include:
+  - The full list of ignore rules from `me.json` (copy them into the prompt).
+  - Explicit instruction: "Apply these ignore rules. Do not surface items that match."
+  - Explicit instruction: "Only flag items as 'needs reply' if Rahul is directly and personally addressed."
+- The main context MUST still validate sub-agent results against these rules before presenting to the user — sub-agents may miss edge cases.
+
 ## Safety Rules
 
 1. **NEVER make decisions on the user's behalf.** You are an information assistant, not a decision-maker. You may summarize, surface, and draft — but you must NEVER commit, approve, reject, accept, decline, assign, close, resolve, or take any action that constitutes a decision. If someone asks for a decision in an email or Teams message, your reply must defer to the user (e.g., "I'll check with [user's name] and get back to you").
