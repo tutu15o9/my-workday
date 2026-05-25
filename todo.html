@@ -211,6 +211,9 @@
     .category-color-followups { border-top: 3px solid var(--red); }
     .category-color-default { border-top: 3px solid var(--text-muted); }
 
+    .category.all-done { opacity: 0.55; transition: opacity 0.3s; }
+    .category.all-done:hover { opacity: 0.85; }
+
     .save-indicator {
       position: fixed;
       bottom: 20px;
@@ -358,12 +361,23 @@
       updateMeta();
 
       board.innerHTML = '';
-      for (const cat of todoData.categories) {
+
+      // Sort: categories with all items done go to the end
+      const sortedCategories = [...todoData.categories].sort((a, b) => {
+        const aDone = a.items.length > 0 && a.items.every(i => i.done);
+        const bDone = b.items.length > 0 && b.items.every(i => i.done);
+        if (aDone === bDone) return 0;
+        return aDone ? 1 : -1;
+      });
+
+      for (const cat of sortedCategories) {
         const catDone = cat.items.filter(i => i.done).length;
         const colorClass = getCategoryColorClass(cat.name);
 
+        const catAllDone = cat.items.length > 0 && cat.items.every(i => i.done);
+
         const section = document.createElement('div');
-        section.className = `category ${colorClass}`;
+        section.className = `category ${colorClass}${catAllDone ? ' all-done' : ''}`;
 
         const header = document.createElement('div');
         header.className = 'category-header';
@@ -388,9 +402,8 @@
           cb.checked = item.done;
           cb.addEventListener('change', () => {
             item.done = cb.checked;
-            textEl.classList.toggle('done', item.done);
             debouncedSave();
-            updateMeta();
+            render();
           });
 
           const textWrapper = document.createElement('div');
@@ -446,15 +459,6 @@
       document.getElementById('metaProgress').textContent = `${pct}%`;
       document.getElementById('progressBar').style.width = `${pct}%`;
       document.getElementById('metaCounts').textContent = `${doneCount} / ${totalCount} done`;
-
-      document.querySelectorAll('.category').forEach((el, i) => {
-        if (todoData.categories[i]) {
-          const cat = todoData.categories[i];
-          const badgeEl = el.querySelector('.badge');
-          const catDone = cat.items.filter(it => it.done).length;
-          badgeEl.textContent = `${catDone}/${cat.items.length}`;
-        }
-      });
     }
 
     async function openFile() {
