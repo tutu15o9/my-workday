@@ -1,4 +1,4 @@
-{
+window.__TODO__ = {
   "created": "2026-05-25",
   "revision": 2,
   "source": "daily-briefing",
@@ -6,7 +6,7 @@
     {
       "name": "📅 Meetings",
       "items": [
-        { "text": "Attend 1:30 PM — Supplier Engagement Weekly Status Report (no updates needed)", "done": true, "source": "Calendar" },
+        { "text": "Prep for 1:30 PM — Supplier Engagement Weekly Status Report (Rishabh Agarwal)", "done": false, "source": "Calendar" },
         { "text": "RSVP to 'Async - Dual Write Sales' meeting invite from Abhishek Kumar Sinha", "done": false, "source": "Email" }
       ]
     },
@@ -34,4 +34,4 @@
       ]
     }
   ]
-}
+};

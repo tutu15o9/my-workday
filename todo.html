@@ -291,13 +291,14 @@
 
   <div class="save-indicator" id="saveIndicator">✓ Saved</div>
 
+  <!-- Auto-load todo data from file:// without a server -->
+  <script src="context/todo-data.js"></script>
   <script>
     let fileHandle = null;
     let todoData = null;
     let lastModified = 0;
-    let saveInProgress = false;
-    let pendingSave = false;
     let saveTimer = null;
+    const STORAGE_KEY = 'myworkday_todo';
 
     const CATEGORY_COLORS = {
       'meetings': 'meetings',
@@ -403,7 +404,19 @@
           if (item.source) {
             const sourceEl = document.createElement('div');
             sourceEl.className = 'todo-source';
-            sourceEl.textContent = `Source: ${item.source}`;
+            if (item.link) {
+              const a = document.createElement('a');
+              a.href = item.link;
+              a.target = '_blank';
+              a.rel = 'noopener';
+              a.textContent = item.source;
+              a.style.color = 'var(--accent)';
+              a.style.textDecoration = 'none';
+              a.addEventListener('click', (e) => e.stopPropagation());
+              sourceEl.appendChild(a);
+            } else {
+              sourceEl.textContent = item.source;
+            }
             textWrapper.appendChild(sourceEl);
           }
 
@@ -481,45 +494,31 @@
 
     function debouncedSave() {
       if (saveTimer) clearTimeout(saveTimer);
-      saveTimer = setTimeout(() => saveFile(), 300);
+      saveTimer = setTimeout(() => saveToLocalStorage(), 150);
     }
 
-    async function saveFile() {
-      if (!fileHandle || !todoData) return;
-
-      if (saveInProgress) {
-        pendingSave = true;
-        return;
-      }
-
-      saveInProgress = true;
+    function saveToLocalStorage() {
+      if (!todoData) return;
       try {
-        // Check for external changes before saving
-        const currentFile = await fileHandle.getFile();
-        if (currentFile.lastModified !== lastModified) {
-          document.getElementById('conflictBanner').classList.add('show');
-          saveInProgress = false;
-          return;
-        }
-
-        const writable = await fileHandle.createWritable();
-        await writable.write(JSON.stringify(todoData, null, 2) + '\n');
-        await writable.close();
-
-        // Update lastModified after successful write
-        const updatedFile = await fileHandle.getFile();
-        lastModified = updatedFile.lastModified;
-
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todoData));
         showIndicator('✓ Saved', false);
       } catch (e) {
         console.error('Save failed:', e);
-        showIndicator('Save failed — try again', true);
-      } finally {
-        saveInProgress = false;
-        if (pendingSave) {
-          pendingSave = false;
-          saveFile();
-        }
+        showIndicator('Save failed', true);
+      }
+    }
+
+    // File-based open/read kept for manual override
+    async function saveFile() {
+      if (!fileHandle || !todoData) return;
+      try {
+        const writable = await fileHandle.createWritable();
+        await writable.write(JSON.stringify(todoData, null, 2) + '\n');
+        await writable.close();
+        showIndicator('✓ Saved to file', false);
+      } catch (e) {
+        console.error('File save failed:', e);
+        showIndicator('File save failed', true);
       }
     }
 
@@ -532,8 +531,28 @@
     }
 
     document.getElementById('openBtn').addEventListener('click', openFile);
-    document.getElementById('refreshBtn').addEventListener('click', readFile);
-    document.getElementById('conflictRefreshBtn').addEventListener('click', readFile);
+    document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
+    document.getElementById('conflictRefreshBtn').addEventListener('click', () => location.reload());
+
+    // Load priority: localStorage (if same date+revision) → embedded __TODO__ → empty
+    (function initLoad() {
+      const embedded = window.__TODO__;
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && validateTodoData(saved) && embedded
+            && saved.created === embedded.created
+            && saved.revision === embedded.revision) {
+          todoData = saved;
+          render();
+          return;
+        }
+      } catch (e) {}
+      if (embedded && validateTodoData(embedded)) {
+        todoData = embedded;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todoData));
+        render();
+      }
+    })();
   </script>
 </body>
 </html>
