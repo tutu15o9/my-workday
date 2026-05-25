@@ -29,6 +29,7 @@ At the start of every session, read these files from the `context/` folder:
 - `context/people.json` — per-person communication preferences, tone, and work context
 - `context/priorities.json` — current priorities and focus areas
 - `context/followups.json` — pending follow-ups and waiting-on items
+- `context/teams-destinations.json` — saved Teams chats and channels with IDs, purpose, and members
 
 ## Core Capabilities
 
@@ -150,6 +151,13 @@ Use the most specific MCP for each task:
 - **Incidents**: `icm` MCP — active incidents, DRI rotation, on-call schedule, incident details
 - **Broad search**: Use `m365-copilot` or `workiq` only when the question spans multiple M365 services or when specific MCPs don't have the answer
 
+### Teams Message Shortcuts
+
+Before sending any Teams message:
+1. **Check `context/teams-destinations.json`** for a saved chat/channel ID matching the user's destination. Use the saved ID directly — do not search via `ListChats` or `ListChannels`.
+2. **Check `context/people.json`** for the recipient's `teams_id` before calling `m365-user` MCP to look them up.
+3. **Use `identity.upn`** from `context/me.json` (not `email`) when the Teams API requires the sender's UPN.
+
 ## GitHub Enterprise (GHE) Repos
 
 The built-in `github-mcp-server` only works with `github.com`. For repos on `microsoft.ghe.com`, use the `gh` CLI with `--hostname microsoft.ghe.com`.
@@ -203,20 +211,21 @@ Replace `[user's name]` and `[user's email]` with values from `context/me.json`.
 
 ## Teams Formatting
 
-- **Channel posts**: Use `contentType: "html"` with HTML formatting
-- **Chat messages (1:1 or group)**: Use `contentType: "text"` with plain text — keep it natural
+- **ALL Teams messages** (channel posts, group chats, and 1:1 chats): Use `contentType: "html"` with HTML formatting. Never use `contentType: "text"` — it collapses all line breaks into a single line.
+- Use `<p>` for paragraphs, `<br/>` for line breaks within a paragraph
+- Use `<strong>` for bold, `<em>` for italic
+- Use `<a href="...">` for clickable links
 
-**Every Teams message MUST end with the following disclaimer** (on a new line, after the main content):
+**@Mentions in Teams messages:**
+- Use `@DisplayName` in the HTML content (e.g., `@Pooja Mandal`) and pass the corresponding `mentions` array with `displayName`, `id`, and `type`.
+- The server auto-replaces `@DisplayName` with proper Teams mention markup.
+- Do **NOT** manually write `<at>` or `<at id="0">` tags — this causes duplicate mentions at the bottom of the message.
+- Before looking up a person via `m365-user` MCP, check `context/people.json` for their `teams_id` first.
 
-For HTML messages (channel posts):
+**Every Teams message MUST end with the following disclaimer** (after the main content):
+
 ```html
-<hr/><p style="font-size:11px;color:#888;">⚡ Drafted by Copilot — may be inaccurate. If this doesn't help, please @ mention <strong>[user's name]</strong> directly and they'll follow up.</p>
-```
-
-For plain text messages (1:1 / group chat):
-```
----
-⚡ Drafted by Copilot — may be inaccurate. If this doesn't help, please @ mention [user's name] directly and they'll follow up.
+<hr/><p style="font-size:11px;color:#888;">⚡ Sent by Copilot — may be inaccurate. If this doesn't help, please @ mention <strong>[user's name]</strong> directly and they'll follow up.</p>
 ```
 
 Replace `[user's name]` with the value from `context/me.json`.

@@ -1,3 +1,44 @@
 {
-  "people": []
+  "people": [
+    {
+      "name": "Pooja Mandal",
+      "aliases": ["Pooja"],
+      "email": "kmandal@microsoft.com",
+      "upn": "kmandal@microsoft.com",
+      "teams_id": "1905d1b2-d323-450b-8ad0-0bf277811ee6",
+      "relationship": "peer",
+      "tone": "formal",
+      "preferred_channel": "teams",
+      "projects": ["VRM"],
+      "work_context": "SRM/VRM engineering team member. Collaborates on PR reviews and engineering work.",
+      "last_updated": "2026-05-25"
+    },
+    {
+      "name": "Stuti Jain",
+      "aliases": ["Stuti"],
+      "email": "jainstuti@microsoft.com",
+      "upn": "jainstuti@microsoft.com",
+      "teams_id": "2f97f50b-3d21-4932-b3d8-2d5d075d97e5",
+      "relationship": "peer",
+      "tone": "formal",
+      "preferred_channel": "teams",
+      "projects": ["VRM"],
+      "work_context": "SRM/VRM engineering team member. Collaborates on PR reviews and engineering work.",
+      "last_updated": "2026-05-25"
+    },
+    {
+      "name": "Yash Agarwal",
+      "aliases": ["Yash"],
+      "email": "yashagarwal@microsoft.com",
+      "upn": "yashagarwal@microsoft.com",
+      "teams_id": "8138892a-5993-424a-86b4-308f253a6059",
+      "relationship": "best friend",
+      "tone": "casual",
+      "preferred_channel": "teams",
+      "projects": [],
+      "behavior_notes": "Best friend for 10 years, flatmate for 4 years. No common work projects.",
+      "work_context": "Personal relationship — not a work collaborator.",
+      "last_updated": "2026-05-25"
+    }
+  ]
 }

@@ -1,0 +1,39 @@
+{
+  "destinations": [
+    {
+      "name": "SRM-Engineering Internal",
+      "type": "group_chat",
+      "id": "19:85386c6e5d804bdebd73050b60baf245@thread.v2",
+      "purpose": "Day-to-day engineering coordination for VRM/SRM project. Primary destination for PR reviews, updates, and engineering questions.",
+      "frequency": "primary",
+      "members": [
+        { "name": "Rahul Tuteja", "email": "rahul.tuteja@microsoft.com" },
+        { "name": "Pooja Mandal", "email": "kmandal@microsoft.com" },
+        { "name": "Stuti Jain", "email": "jainstuti@microsoft.com" },
+        { "name": "Abhilasha Takarar", "email": "abhilasha.takarar@microsoft.com" },
+        { "name": "Sathya Karimela", "email": "sathya.karimela@microsoft.com" },
+        { "name": "Rishabh Agarwal", "email": "rishabh.agarwal@microsoft.com" }
+      ]
+    },
+    {
+      "name": "Yash Agarwal",
+      "type": "one_on_one",
+      "id": "19:8138892a-5993-424a-86b4-308f253a6059_bb9a2e86-89f5-4175-9db8-8908d6608588@unq.gbl.spaces",
+      "purpose": "Personal chat with Yash Agarwal.",
+      "frequency": "occasional"
+    },
+    {
+      "name": "MSFT/HSO SRM Team",
+      "type": "team",
+      "team_id": "0d8737e7-b499-4b4e-a304-702e9fd3dcd6",
+      "purpose": "Cross-org team for MSFT and HSO collaboration on SRM. 53 members including HSO contacts and MSFT engineering/stakeholders.",
+      "frequency": "rarely_used",
+      "channels": [
+        { "name": "General", "id": "19:pVNT3coiUII26-ZiEhTU3EHOeEztjT3bthxWPVw9Lw81@thread.tacv2" },
+        { "name": "Architecture", "id": "19:cdcfee23ac5949dba1d11c7b4941664d@thread.tacv2" },
+        { "name": "Private Preview Testing", "id": "19:f52df1ad5b1a4fca955131d936901439@thread.tacv2" },
+        { "name": "Supplier Engagement User Documentation", "id": "19:877c384e4bd54aa39bda39cc9010caa5@thread.tacv2" }
+      ]
+    }
+  ]
+}
