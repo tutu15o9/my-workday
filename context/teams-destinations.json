@@ -6,6 +6,8 @@
       "id": "19:85386c6e5d804bdebd73050b60baf245@thread.v2",
       "purpose": "Day-to-day engineering coordination for VRM/SRM project. Primary destination for PR reviews, updates, and engineering questions.",
       "frequency": "primary",
+      "repo": "bic/crm.solutions.vendorrelationshipmanagement",
+      "repo_host": "microsoft.ghe.com",
       "members": [
         { "name": "Rahul Tuteja", "email": "rahul.tuteja@microsoft.com" },
         { "name": "Pooja Mandal", "email": "kmandal@microsoft.com" },
