@@ -8,6 +8,7 @@
       "frequency": "primary",
       "repo": "bic/crm.solutions.vendorrelationshipmanagement",
       "repo_host": "microsoft.ghe.com",
+      "pipelines": "https://dev.azure.com/dynamicscrm/OneCRM/_build?definitionScope=%5COneBranch%5CCRM.Solutions.VendorRelationshipManagement",
       "members": [
         { "name": "Rahul Tuteja", "email": "rahul.tuteja@microsoft.com" },
         { "name": "Pooja Mandal", "email": "kmandal@microsoft.com" },

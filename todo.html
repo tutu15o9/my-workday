@@ -266,7 +266,7 @@
     <h1>📋 My Workday</h1>
     <div class="header-actions">
       <button class="btn" id="refreshBtn" title="Re-read the file">↻ Refresh</button>
-      <button class="btn btn-primary" id="openBtn">📂 Open todo.json</button>
+      <button class="btn btn-primary" id="openBtn">📂 Open todo-data.js</button>
     </div>
   </div>
 
@@ -287,7 +287,7 @@
   <div class="empty-state" id="emptyState">
     <div class="icon">📂</div>
     <h2>Open your todo file</h2>
-    <p>Click <strong>"Open todo.json"</strong> above to load your todo list from <code>context/todo.json</code>. Changes you make here will be saved back to the file.</p>
+    <p>Click <strong>"Open todo-data.js"</strong> above to load your todo list from <code>context/todo-data.js</code>. Changes you make here will be saved back to the file.</p>
   </div>
 
   <div class="board" id="board" style="display:none;"></div>
@@ -348,7 +348,7 @@
         emptyState.querySelector('h2').textContent = todoData ? 'No todos yet' : 'Open your todo file';
         emptyState.querySelector('p').textContent = todoData
           ? 'Ask your assistant to generate a todo list from your daily briefing.'
-          : 'Click "Open todo.json" above to load your todo list.';
+          : 'Click "Open todo-data.js" above to load your todo list.';
         metaBar.style.display = 'none';
         return;
       }
@@ -464,7 +464,7 @@
     async function openFile() {
       try {
         [fileHandle] = await window.showOpenFilePicker({
-          types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+          types: [{ description: 'JS', accept: { 'application/javascript': ['.js'] } }],
           multiple: false,
         });
         await readFile();
@@ -481,9 +481,11 @@
       try {
         const file = await fileHandle.getFile();
         const text = await file.text();
-        const parsed = JSON.parse(text);
+        // Strip JS wrapper: "window.__TODO__ = {...};" → pure JSON
+        const jsonStr = text.replace(/^window\.__TODO__\s*=\s*/, '').replace(/;\s*$/, '');
+        const parsed = JSON.parse(jsonStr);
         if (!validateTodoData(parsed)) {
-          showIndicator('Invalid todo.json format', true);
+          showIndicator('Invalid todo-data.js format', true);
           return;
         }
         todoData = parsed;
@@ -517,7 +519,7 @@
       if (!fileHandle || !todoData) return;
       try {
         const writable = await fileHandle.createWritable();
-        await writable.write(JSON.stringify(todoData, null, 2) + '\n');
+        await writable.write('window.__TODO__ = ' + JSON.stringify(todoData, null, 2) + ';\n');
         await writable.close();
         showIndicator('✓ Saved to file', false);
       } catch (e) {
