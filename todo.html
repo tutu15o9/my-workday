@@ -231,28 +231,6 @@
     .save-indicator.show { opacity: 1; }
     .save-indicator.error { background: #f85149; }
 
-    .conflict-banner {
-      display: none;
-      padding: 10px 32px;
-      background: #d29922;
-      color: #0d1117;
-      font-size: 13px;
-      font-weight: 500;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .conflict-banner.show { display: flex; }
-    .conflict-banner button {
-      padding: 4px 12px;
-      border-radius: 4px;
-      border: none;
-      background: #0d1117;
-      color: #d29922;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-    }
 
     @media (max-width: 768px) {
       .board { grid-template-columns: 1fr; padding: 16px; }
@@ -265,8 +243,7 @@
   <div class="header">
     <h1>📋 My Workday</h1>
     <div class="header-actions">
-      <button class="btn" id="refreshBtn" title="Re-read the file">↻ Refresh</button>
-      <button class="btn btn-primary" id="openBtn">📂 Open todo-data.js</button>
+      <button class="btn" id="refreshBtn" title="Reload todo data">↻ Refresh</button>
     </div>
   </div>
 
@@ -279,27 +256,30 @@
     <span id="metaCounts">0 / 0 done</span>
   </div>
 
-  <div class="conflict-banner" id="conflictBanner">
-    ⚠️ The file was changed externally (likely by the assistant). Your in-browser changes may conflict.
-    <button id="conflictRefreshBtn">Refresh now</button>
-  </div>
+
 
   <div class="empty-state" id="emptyState">
-    <div class="icon">📂</div>
-    <h2>Open your todo file</h2>
-    <p>Click <strong>"Open todo-data.js"</strong> above to load your todo list from <code>context/todo-data.js</code>. Changes you make here will be saved back to the file.</p>
+    <div class="icon">📋</div>
+    <h2>No todos yet</h2>
+    <p>Ask your assistant to generate a todo list from your daily briefing.</p>
   </div>
 
   <div class="board" id="board" style="display:none;"></div>
 
   <div class="save-indicator" id="saveIndicator">✓ Saved</div>
 
-  <!-- Auto-load todo data from file:// without a server -->
-  <script src="context/todo-data.js?v=20260601-2"></script>
+  <!-- Load todo data dynamically with cache busting -->
   <script>
-    let fileHandle = null;
+    (function() {
+      const s = document.createElement('script');
+      s.src = 'context/todo-data.js?t=' + Date.now();
+      s.onload = function() { if (window.__TODO__) initBoard(); };
+      s.onerror = function() { initBoard(); };
+      document.head.appendChild(s);
+    })();
+  </script>
+  <script>
     let todoData = null;
-    let lastModified = 0;
     let saveTimer = null;
     const STORAGE_KEY = 'myworkday_todo';
 
@@ -345,10 +325,8 @@
       if (!todoData || !todoData.categories || todoData.categories.length === 0) {
         board.style.display = 'none';
         emptyState.style.display = 'flex';
-        emptyState.querySelector('h2').textContent = todoData ? 'No todos yet' : 'Open your todo file';
-        emptyState.querySelector('p').textContent = todoData
-          ? 'Ask your assistant to generate a todo list from your daily briefing.'
-          : 'Click "Open todo-data.js" above to load your todo list.';
+        emptyState.querySelector('h2').textContent = 'No todos yet';
+        emptyState.querySelector('p').textContent = 'Ask your assistant to generate a todo list from your daily briefing.';
         metaBar.style.display = 'none';
         return;
       }
@@ -461,43 +439,6 @@
       document.getElementById('metaCounts').textContent = `${doneCount} / ${totalCount} done`;
     }
 
-    async function openFile() {
-      try {
-        [fileHandle] = await window.showOpenFilePicker({
-          types: [{ description: 'JS', accept: { 'application/javascript': ['.js'] } }],
-          multiple: false,
-        });
-        await readFile();
-      } catch (e) {
-        if (e.name !== 'AbortError') {
-          console.error('Open failed:', e);
-          showIndicator('Failed to open file', true);
-        }
-      }
-    }
-
-    async function readFile() {
-      if (!fileHandle) return;
-      try {
-        const file = await fileHandle.getFile();
-        const text = await file.text();
-        // Strip JS wrapper: "window.__TODO__ = {...};" → pure JSON
-        const jsonStr = text.replace(/^window\.__TODO__\s*=\s*/, '').replace(/;\s*$/, '');
-        const parsed = JSON.parse(jsonStr);
-        if (!validateTodoData(parsed)) {
-          showIndicator('Invalid todo-data.js format', true);
-          return;
-        }
-        todoData = parsed;
-        lastModified = file.lastModified;
-        document.getElementById('conflictBanner').classList.remove('show');
-        render();
-      } catch (e) {
-        console.error('Read failed:', e);
-        showIndicator('Failed to read file', true);
-      }
-    }
-
     function debouncedSave() {
       if (saveTimer) clearTimeout(saveTimer);
       saveTimer = setTimeout(() => saveToLocalStorage(), 150);
@@ -514,20 +455,6 @@
       }
     }
 
-    // File-based open/read kept for manual override
-    async function saveFile() {
-      if (!fileHandle || !todoData) return;
-      try {
-        const writable = await fileHandle.createWritable();
-        await writable.write('window.__TODO__ = ' + JSON.stringify(todoData, null, 2) + ';\n');
-        await writable.close();
-        showIndicator('✓ Saved to file', false);
-      } catch (e) {
-        console.error('File save failed:', e);
-        showIndicator('File save failed', true);
-      }
-    }
-
     function showIndicator(text, isError) {
       const el = document.getElementById('saveIndicator');
       el.textContent = text;
@@ -536,12 +463,12 @@
       setTimeout(() => el.classList.remove('show'), 2000);
     }
 
-    document.getElementById('openBtn').addEventListener('click', openFile);
     document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
-    document.getElementById('conflictRefreshBtn').addEventListener('click', () => location.reload());
 
-    // Load priority: localStorage (if same date+revision) → embedded __TODO__ → empty
-    (function initLoad() {
+    // Called after todo-data.js is loaded (or fails to load)
+    // Priority: if assistant updated the file (new revision) → use file data
+    //           if same revision → use localStorage (preserves checkbox state)
+    function initBoard() {
       const embedded = window.__TODO__;
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -558,7 +485,7 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(todoData));
         render();
       }
-    })();
+    }
   </script>
 </body>
 </html>

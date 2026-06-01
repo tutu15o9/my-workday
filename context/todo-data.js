@@ -1,7 +1,7 @@
 window.__TODO__ = {
   "created": "2026-06-01",
-  "revision": 1,
-  "source": "afternoon-refresh-verified",
+  "revision": 2,
+  "source": "afternoon-cleanup",
   "categories": [
     {
       "name": "🚀 Supplier Engagement Onboarding",
@@ -19,17 +19,8 @@ window.__TODO__ = {
       ]
     },
     {
-      "name": "📧 Email & Teams",
-      "items": [
-        { "id": "help-manikanta-env", "text": "Help Manikanta Gummadi (HSO) — env setup issue", "done": false, "source": "Teams 1:1" },
-        { "id": "rsvp-async-dw", "text": "RSVP to 'Async - Dual Write Sales' meeting invite", "done": false, "source": "Email (carried over)" },
-        { "id": "tax-regime", "text": "Tax Regime selection — deadline July 31", "done": false, "source": "Payroll email" }
-      ]
-    },
-    {
       "name": "🎯 Weekly Goals",
       "items": [
-        { "id": "fix-playwright-vrm", "text": "Fix Playwright onboarding issues in VRM", "done": false, "source": "priorities.json" },
         { "id": "vrm-knowledge-base", "text": "Start building knowledge base for VRM solution", "done": false, "source": "priorities.json" }
       ]
     }
