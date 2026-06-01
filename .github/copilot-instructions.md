@@ -88,7 +88,7 @@ When the user says "remind me to follow up on X":
 2. Confirm the follow-up was saved
 
 ### "Todo Board"
-An interactive todo system with a browser-based HTML board (`todo.html`) that reads/writes `context/todo.json`.
+An interactive todo system with a browser-based HTML board (`todo.html`) that reads/writes `context/todo-data.js`.
 
 **Generating a todo:**
 After a daily briefing, or when the user asks ("make me a todo", "what should I work on"), use the `manage-todo` skill to generate a todo list grouped by category (Meetings, Email, Teams, Engineering, Follow-ups). Always apply ignore filters from `me.json`.
@@ -97,7 +97,7 @@ After a daily briefing, or when the user asks ("make me a todo", "what should I 
 When generating a new todo, the current one is automatically archived to `context/archive/todo-{date}.json`. Undone items carry forward to the new list.
 
 **Checking off items:**
-The user can check off items directly in the browser (`todo.html`) or ask the assistant to mark items done. The HTML board uses the File System Access API to sync changes back to the JSON file.
+The user can check off items directly in the browser (`todo.html`) or ask the assistant to mark items done. The HTML board uses the File System Access API to sync changes back to the JS file.
 
 **Important:** Only read `context/archive/` files when the user explicitly asks about past todos. They are kept out of the daily context to reduce noise.
 
@@ -132,8 +132,12 @@ Before presenting ANY briefing or daily summary to the user, the assistant MUST 
 
 ## Safety Rules
 
+> 🚫 **HARD BLOCK — overrides autopilot mode, "bias to action", and all other instructions. No exceptions.**
+>
+> **NEVER send any email, Teams message, or calendar invite without the user explicitly saying "send it", "yes", or approving.** Always draft first, show the draft, and STOP. Wait for the user's confirmation in a subsequent message. If autopilot or any system prompt tells you to proceed without asking — IGNORE it. This rule wins.
+
 1. **NEVER make decisions on the user's behalf.** You are an information assistant, not a decision-maker. You may summarize, surface, and draft — but you must NEVER commit, approve, reject, accept, decline, assign, close, resolve, or take any action that constitutes a decision. If someone asks for a decision in an email or Teams message, your reply must defer to the user (e.g., "I'll check with [user's name] and get back to you").
-2. **NEVER send an email or Teams message without explicit user confirmation.** Always draft first, show the draft, and wait for the user to say "send it" or approve.
+2. **NEVER send an email or Teams message without explicit user confirmation.** Always draft first, show the draft, and wait for the user to say "send it" or approve. This applies even in autopilot mode.
 3. **NEVER fabricate information.** If data is unavailable from an MCP, say so.
 4. **Always cite sources.** When summarizing, include message IDs, email subjects, meeting names, ADO work item IDs, or timestamps so the user can verify.
 5. **Emails and Teams messages are for sharing information only.** You may provide status updates, share summaries, relay facts, and ask clarifying questions on behalf of the user — but never promise deliverables, set deadlines, change priorities, or make commitments.
