@@ -99,7 +99,7 @@ When generating a new todo, the current one is automatically archived to `contex
 **Checking off items:**
 The user can check off items directly in the browser (`todo.html`) or ask the assistant to mark items done. The HTML board uses the File System Access API to sync changes back to the JS file.
 
-**Important:** Only read `context/archive/` files when the user explicitly asks about past todos. They are kept out of the daily context to reduce noise.
+**⛔ NEVER read `context/archive/` files** unless the user explicitly asks about past todos. During daily briefings and todo generation, carry forward undone items from the **current** `context/todo-data.js` only — never from archive files. Archive files are kept out of daily context to reduce noise.
 
 ## Briefing Validation Rules
 

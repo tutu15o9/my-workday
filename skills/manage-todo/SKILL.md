@@ -110,7 +110,8 @@ When the user asks about past todos:
 
 - Always apply ignore filters when generating todos.
 - Always archive before generating a new todo if the current one has items.
-- Carry forward undone items when archiving.
+- Carry forward undone items from the **current** `context/todo-data.js` only — **NEVER read archive files** during todo generation.
+- Only read `context/archive/` files when the user explicitly asks about past todos.
 - Use kebab-case IDs (e.g., `reply-avijeet-meeting`, `fix-playwright-pipeline`).
 - Keep item text concise — one line, actionable.
 - When carrying forward undone items, deduplicate by `id` — if the new briefing produces an item with the same ID, keep the carried-forward version.

@@ -1,8 +1,26 @@
 window.__TODO__ = {
-  "created": "2026-06-01",
-  "revision": 2,
-  "source": "afternoon-cleanup",
+  "created": "2026-06-02",
+  "revision": 1,
+  "source": "daily-briefing",
   "categories": [
+    {
+      "name": "📅 Meetings",
+      "items": [
+        { "id": "daily-sync", "text": "10:30 AM — Supplier Engagements Daily Sync (NOW)", "done": false, "source": "Calendar" },
+        { "id": "dw-icm", "text": "11:10 AM — Dual Write ICM (Abhishek on leave)", "done": false, "source": "Calendar" },
+        { "id": "hso-msft-sync", "text": "1:30 PM — HSO & Microsoft Sync Updates", "done": false, "source": "Calendar" },
+        { "id": "async-dw-sales", "text": "3:30 PM — Async - Dual Write Sales", "done": false, "source": "Calendar" }
+      ]
+    },
+    {
+      "name": "💬 Email & Teams",
+      "items": [
+        { "id": "reply-abhilasha-pr", "text": "Reply to Abhilasha Takarar — PR review request (6 days ago)", "done": false, "source": "Teams" },
+        { "id": "reply-ethan-dw", "text": "Reply to Ethan Kallett — DW maps kill switch question", "done": false, "source": "Email (carried over)" },
+        { "id": "help-manikanta-env", "text": "Help Manikanta Gummadi (HSO) — env setup issue", "done": false, "source": "Teams 1:1 (carried over)" },
+        { "id": "tax-regime", "text": "Tax Regime selection — deadline July 31", "done": false, "source": "Payroll email (carried over)" }
+      ]
+    },
     {
       "name": "🚀 Supplier Engagement Onboarding",
       "items": [
@@ -15,12 +33,17 @@ window.__TODO__ = {
     {
       "name": "🛠️ Engineering",
       "items": [
-        { "id": "review-in-review-tasks", "text": "Review 4 tasks in 'In Review' — Epics 1, 3, 8, 9", "done": false, "source": "ADO — #6240219, #6281419, #6321211, #6310422" }
+        { "id": "playwright-pipeline-workarounds", "text": "Apply workarounds to get ADO pipeline running Playwright tests e2e", "done": false, "source": "ADO #6119333", "link": "https://dev.azure.com/dynamicscrm/OneCRM/_workitems/edit/6119333" },
+        { "id": "playwright-pipeline-secrets", "text": "Add pipeline secrets & configure custom certificates for Playwright", "done": false, "source": "ADO #5843315", "link": "https://dev.azure.com/dynamicscrm/OneCRM/_workitems/edit/5843315" },
+        { "id": "review-in-review-tasks", "text": "Review 4 tasks in 'In Review' — Epics 1, 3, 8, 9", "done": false, "source": "ADO — #6240219, #6281419, #6321211, #6310422" },
+        { "id": "check-stale-pr", "text": "Check stale PR #1516899 — Playwright edge browser (open since Feb)", "done": false, "source": "ADO PR", "link": "https://dev.azure.com/dynamicscrm/OneCRM/_git/CRM.Solutions.Tools.Pipelines/pullrequest/1516899" },
+        { "id": "nuget-pipeline", "text": "Playwright test pipeline: deploy specific NuGet version instead of building from master", "done": false, "source": "ADO #6449949" }
       ]
     },
     {
       "name": "🎯 Weekly Goals",
       "items": [
+        { "id": "fix-playwright-vrm", "text": "Fix Playwright onboarding issues in VRM", "done": false, "source": "priorities.json" },
         { "id": "vrm-knowledge-base", "text": "Start building knowledge base for VRM solution", "done": false, "source": "priorities.json" }
       ]
     }
